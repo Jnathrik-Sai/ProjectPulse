@@ -36,7 +36,7 @@ struct HomeView: View {
                 .disabled(showMenu)
                 .allowsHitTesting(!showMenu)
             }
-            .background(.teal)
+            .background(.white) // main background
             .overlay {
                 Rectangle()
                     .fill(.ultraThinMaterial)
@@ -77,12 +77,13 @@ struct HomeView: View {
         HStack(spacing: 20.0) {
             if !isExpanded {
                 Button {
+                    print("Menu tapped. showMenu before:", showMenu)
                     showMenu.toggle()
+                    print("showMenu after:", showMenu)
                 } label: {
                     Image(systemName: "list.bullet")
                         .font(.title3)
                 }
-                .transition(.blurReplace)
             }
 
             TextField("Search for projects...", text: .constant(""))
@@ -121,7 +122,7 @@ struct HomeView: View {
             Rectangle()
                 .fill(.background)
                 .ignoresSafeArea()
-                .opacity(!isExpanded ? 1 : 0) // ✅ Fixed here
+                .opacity(!isExpanded ? 1 : 0)
         }
     }
 

@@ -67,6 +67,25 @@ struct MorphingSymbolView: View {
         var symbolAnimation: Animation = .smooth(duration: 0.5, extraBounce: 0)
     }
 }
+struct CircleCheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        Button {
+            configuration.isOn.toggle()
+        } label: {
+            ZStack {
+                Circle()
+                    .stroke(configuration.isOn ? Color.green : Color.secondary, lineWidth: 2)
+                    .frame(width: 20, height: 20)
+                if configuration.isOn {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.green)
+                        .font(.system(size: 14, weight: .bold))
+                }
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
 
 #Preview {
     MorphingSymbolView(

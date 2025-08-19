@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E91517F32E4875E10045B8BD /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = E91517F22E4875E10045B8BD /* SwiftUIIntrospect */; };
+		E926DEDA2E543CCF00342E12 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = E926DED92E543CCF00342E12 /* SocketIO */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E9F36DA82E2AB6790020C910 /* ProjectPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E91518182E487A0A0045B8BD /* Exceptions for "ProjectPulse" folder in "ProjectPulse" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E9F36DA72E2AB6790020C910 /* ProjectPulse */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E9F36DAA2E2AB6790020C910 /* ProjectPulse */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E91518182E487A0A0045B8BD /* Exceptions for "ProjectPulse" folder in "ProjectPulse" target */,
+			);
 			path = ProjectPulse;
 			sourceTree = "<group>";
 		};
@@ -23,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91517F32E4875E10045B8BD /* SwiftUIIntrospect in Frameworks */,
+				E926DEDA2E543CCF00342E12 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +85,8 @@
 			);
 			name = ProjectPulse;
 			packageProductDependencies = (
+				E91517F22E4875E10045B8BD /* SwiftUIIntrospect */,
+				E926DED92E543CCF00342E12 /* SocketIO */,
 			);
 			productName = ProjectPulse;
 			productReference = E9F36DA82E2AB6790020C910 /* ProjectPulse.app */;
@@ -94,6 +116,10 @@
 			);
 			mainGroup = E9F36D9F2E2AB6790020C910;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E91517F12E4875E10045B8BD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				E926DED82E543CCF00342E12 /* XCRemoteSwiftPackageReference "socket" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E9F36DA92E2AB6790020C910 /* Products */;
 			projectDirPath = "";
@@ -256,6 +282,7 @@
 				DEVELOPMENT_TEAM = P7MCTTRKSH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProjectPulse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +311,7 @@
 				DEVELOPMENT_TEAM = P7MCTTRKSH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProjectPulse/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -324,6 +352,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E91517F12E4875E10045B8BD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		E926DED82E543CCF00342E12 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E91517F22E4875E10045B8BD /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E91517F12E4875E10045B8BD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		E926DED92E543CCF00342E12 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E926DED82E543CCF00342E12 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E9F36DA02E2AB6790020C910 /* Project object */;
 }

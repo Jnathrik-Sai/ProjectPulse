@@ -25,7 +25,7 @@ struct ProjectPulseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavContentView()
         }
         .modelContainer(sharedModelContainer)
     }

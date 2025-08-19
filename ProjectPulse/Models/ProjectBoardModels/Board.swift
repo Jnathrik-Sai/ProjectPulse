@@ -22,6 +22,11 @@ class Board : ObservableObject, Identifiable, Codable {
         self.name = name
         self.lists = lists
     }
+
+    // Convenience initializer to create a Board from a ProjectResponse
+    convenience init(project: ProjectResponse) {
+        self.init(name: project.name, lists: [])
+    }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -68,5 +73,7 @@ class Board : ObservableObject, Identifiable, Codable {
     private func boardListIndex(id: UUID) -> Int? {
         lists.firstIndex { $0.id == id }
     }
-
+    func findBoardList(by id: UUID) -> BoardList? {
+        lists.first(where: { $0.id == id })
+    }
 }

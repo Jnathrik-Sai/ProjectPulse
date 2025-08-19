@@ -15,10 +15,10 @@ struct BoardRequest: Codable {
     let workspaceId: String
     let visibility: String
     let background: String
-    let template: String
-    let invitedEmails: [String]
+    let template: String = "default"
     let startDate: Date
     let dueDate: Date
+    let invitedEmails: [String]?
 }
 
 

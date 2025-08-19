@@ -94,7 +94,7 @@ struct HomeBody: View {
                     maxHeight: .infinity,
                     alignment: .top)
                 .background(.ultraThinMaterial)
-                .cornerRadius(20, corners: [.topLeft, .topRight])
+                .cornerRadius(30, corners: [.topLeft, .topRight])
             }
             .frame(maxHeight: .infinity, alignment: .top)
         }
