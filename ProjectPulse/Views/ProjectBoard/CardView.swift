@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 
+// MARK: - CardView
 struct CardView: View {
     @ObservedObject var board: Board
     @ObservedObject var boardList: BoardList
     @ObservedObject var card: Card
-    
+
     @State private var isChecked: Bool = false
     @State private var showClipTextField: Bool = false
     @State private var clipLinkText: String = ""
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -25,33 +27,28 @@ struct CardView: View {
                     .fontWeight(.semibold)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.red.opacity(0.9))
-                    )
+                    .background(RoundedRectangle(cornerRadius: 12).fill(card.priorityColor?.color ?? Color.red))
+
                 Text(card.taskType)
                     .font(.caption)
                     .foregroundColor(.white)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.blue.opacity(0.9))
-                    )
+                    .background(RoundedRectangle(cornerRadius: 12).fill(card.taskTypeColor?.color ?? Color.blue))
+
                 Spacer()
+
                 Menu {
                     Button("Edit") { handleEditCard() }
-                    Button("Delete", role: .destructive) {
-                        boardList.removeCard(card)
-                    }
+                    Button("Delete", role: .destructive) { boardList.removeCard(card) }
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(Color.gray.opacity(0.7))
                         .imageScale(.small)
                 }
             }
-            
+
             HStack {
                 Text(card.taskName)
                     .font(.title3)
@@ -62,7 +59,7 @@ struct CardView: View {
                     .toggleStyle(CircleCheckboxToggleStyle())
                     .labelsHidden()
             }
-            
+
             ForEach(card.clipLinks, id: \.self) { link in
                 if let url = URL(string: link) {
                     Link(destination: url) {
@@ -78,35 +75,22 @@ struct CardView: View {
                     }
                 }
             }
-            
+
             if showClipTextField {
                 TextField("Insert clip link...", text: $clipLinkText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal, 2)
-                    .onChange(of: clipLinkText) { _, newValue in
-                        if newValue != newValue.lowercased() {
-                            clipLinkText = newValue.lowercased()
-                        }
-                    }
-                    .onSubmit {
-                        saveLink()
-                    }
+                    .onSubmit { saveLink() }
             }
-            
+
             HStack {
-                Button {
-                    withAnimation {
-                        showClipTextField.toggle()
-                    }
-                } label: {
+                Button { withAnimation { showClipTextField.toggle() } } label: {
                     Image(systemName: "paperclip")
                         .frame(width: 18, height: 18)
                         .foregroundStyle(.gray.opacity(0.6))
                 }
                 Spacer()
-                Button {
-                    // TODO: implement doc upload action
-                } label: {
+                Button { /* TODO: document upload */ } label: {
                     Image(systemName: "doc")
                         .frame(width: 18, height: 18)
                         .foregroundStyle(.gray.opacity(0.7))
@@ -119,36 +103,30 @@ struct CardView: View {
         .cornerRadius(12)
         .shadow(radius: 1, y: 1)
     }
-    
+
     private func handleEditCard() {
         presentAlertTextField(title: "Edit Card", defaultTextFieldText: card.content) { text in
-            guard let text = text, !text.isEmpty else {
-                return
-            }
-            card.content = text
+            guard let text = text, !text.isEmpty else { return }
+            DispatchQueue.main.async { card.content = text }
         }
     }
-    
+
     private func saveLink() {
-        guard let url = URL(string: clipLinkText), !clipLinkText.isEmpty else { return }
-        if !card.clipLinks.contains(clipLinkText) {
+        guard !clipLinkText.isEmpty, !card.clipLinks.contains(clipLinkText) else { return }
+        DispatchQueue.main.async {
             card.clipLinks.append(clipLinkText)
+            clipLinkText = ""
+            showClipTextField = false
         }
-        clipLinkText = ""
-        showClipTextField = false
     }
 }
 
-#Preview {
-    @Previewable @StateObject var boardList = Board.stub.lists[0]
-    let sampleCard = Card(
-        boardListId: boardList.id,
-        content: "Fix bug causing app crash on launch",
-        priority: "High",
-        taskType: "Bug",
-        taskName: "Crash Fix"
-    )
 
-    CardView(board: Board.stub, boardList: boardList, card: sampleCard)
-        .frame(width: 300)
+
+class CardList: ObservableObject {
+    @Published var items: [Card] = []
+
+    init(_ items: [Card] = []) {
+        self.items = items
+    }
 }

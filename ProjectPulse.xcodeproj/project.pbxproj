@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E91517F32E4875E10045B8BD /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = E91517F22E4875E10045B8BD /* SwiftUIIntrospect */; };
 		E926DEDA2E543CCF00342E12 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = E926DED92E543CCF00342E12 /* SocketIO */; };
+		E9C2AC552E55909100452819 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = E9C2AC542E55909100452819 /* BottomSheet */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91517F32E4875E10045B8BD /* SwiftUIIntrospect in Frameworks */,
+				E9C2AC552E55909100452819 /* BottomSheet in Frameworks */,
 				E926DEDA2E543CCF00342E12 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				E91517F22E4875E10045B8BD /* SwiftUIIntrospect */,
 				E926DED92E543CCF00342E12 /* SocketIO */,
+				E9C2AC542E55909100452819 /* BottomSheet */,
 			);
 			productName = ProjectPulse;
 			productReference = E9F36DA82E2AB6790020C910 /* ProjectPulse.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				E91517F12E4875E10045B8BD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				E926DED82E543CCF00342E12 /* XCRemoteSwiftPackageReference "socket" */,
+				E9C2AC532E55909100452819 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E9F36DA92E2AB6790020C910 /* Products */;
@@ -370,6 +374,14 @@
 				kind = branch;
 			};
 		};
+		E9C2AC532E55909100452819 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Wouter125/BottomSheet.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -382,6 +394,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E926DED82E543CCF00342E12 /* XCRemoteSwiftPackageReference "socket" */;
 			productName = SocketIO;
+		};
+		E9C2AC542E55909100452819 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C2AC532E55909100452819 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

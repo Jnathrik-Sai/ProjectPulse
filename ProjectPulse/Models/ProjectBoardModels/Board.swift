@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class Board : ObservableObject, Identifiable, Codable {
+class Board: ObservableObject, Identifiable, Codable {
     
     private(set) var id = UUID()
     @Published var name: String
@@ -23,7 +23,6 @@ class Board : ObservableObject, Identifiable, Codable {
         self.lists = lists
     }
 
-    // Convenience initializer to create a Board from a ProjectResponse
     convenience init(project: ProjectResponse) {
         self.init(name: project.name, lists: [])
     }
@@ -42,21 +41,24 @@ class Board : ObservableObject, Identifiable, Codable {
         try container.encode(lists, forKey: .lists)
     }
     
-    func move(card: Card, to boardList: BoardList, at index: Int) {
+    // MARK: - Card Movement
+    func move(card: Card, to destinationList: BoardList, at index: Int) {
         guard
             let sourceBoardListIndex = boardListIndex(id: card.boardListId),
-            let destinationBoardListIndex = boardListIndex(id: boardList.id),
+            let destinationBoardListIndex = boardListIndex(id: destinationList.id),
             sourceBoardListIndex != destinationBoardListIndex,
             let sourceCardIndex = cardIndex(id: card.id, boardIndex: sourceBoardListIndex)
-        else {
-            return
-        }
+        else { return }
         
-        boardList.cards.insert(card, at: index)
-        card.boardListId = boardList.id
-        lists[sourceBoardListIndex].cards.remove(at: sourceCardIndex)
+        // Insert into destination list
+        destinationList.cards.items.insert(card, at: index)
+        card.boardListId = destinationList.id
+        
+        // Remove from source list
+        lists[sourceBoardListIndex].cards.items.remove(at: sourceCardIndex)
     }
     
+    // MARK: - List Management
     func addNewBoardListWithName(_ name: String) {
         lists.append(BoardList(boardId: id, name: name))
     }
@@ -66,13 +68,15 @@ class Board : ObservableObject, Identifiable, Codable {
         lists.remove(at: index)
     }
     
+    // MARK: - Helpers
     private func cardIndex(id: UUID, boardIndex: Int) -> Int? {
-        lists[boardIndex].cardIndex(id: id)
+        lists[boardIndex].cards.items.firstIndex { $0.id == id }
     }
     
     private func boardListIndex(id: UUID) -> Int? {
         lists.firstIndex { $0.id == id }
     }
+    
     func findBoardList(by id: UUID) -> BoardList? {
         lists.first(where: { $0.id == id })
     }

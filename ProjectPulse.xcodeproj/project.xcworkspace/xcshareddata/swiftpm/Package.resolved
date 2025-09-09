@@ -1,6 +1,15 @@
 {
-  "originHash" : "dc9268c81e670f123f2c0692317a3f17284d31fbfda01a5ac038d694f7bc1c21",
+  "originHash" : "d0ff86f9363460f0e48660eb493d2e5e63bb2a0bf0d4f68e0dc5ebbd01162234",
   "pins" : [
+    {
+      "identity" : "bottomsheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Wouter125/BottomSheet.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "83f016b6ad8e74ebd5eda3b8054ee7b6aa5de1dc"
+      }
+    },
     {
       "identity" : "socket.io-client-swift",
       "kind" : "remoteSourceControl",
