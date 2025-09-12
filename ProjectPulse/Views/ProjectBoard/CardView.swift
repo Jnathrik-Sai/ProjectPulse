@@ -122,11 +122,25 @@ struct CardView: View {
 }
 
 
-
-class CardList: ObservableObject {
+final class CardList: ObservableObject, Codable {
     @Published var items: [Card] = []
+
+    enum CodingKeys: CodingKey {
+        case items
+    }
 
     init(_ items: [Card] = []) {
         self.items = items
+    }
+
+    // MARK: - Codable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = try container.decode([Card].self, forKey: .items)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(items, forKey: .items)
     }
 }

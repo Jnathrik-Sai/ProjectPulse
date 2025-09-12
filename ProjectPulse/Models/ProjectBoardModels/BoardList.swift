@@ -15,7 +15,7 @@ class BoardList: NSObject, ObservableObject, Identifiable, Codable {
     
     @Published var name: String = ""
     @Published var titleBackgroundColor: UIColor? = .green
-    @Published var cards: CardList = CardList()   // <-- wrapped
+    @Published var cards: CardList = CardList()   // wrapper
 
     enum CodingKeys: String, CodingKey {
         case id, boardId, name, cards, titleBackgroundColorHex
@@ -51,11 +51,5 @@ class BoardList: NSObject, ObservableObject, Identifiable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(cards.items, forKey: .cards)
         try container.encode(titleBackgroundColor?.toHexString(), forKey: .titleBackgroundColorHex)
-    }
-
-    func createCard(withTitle title: String) -> Card {
-        let card = Card(boardListId: self.id, content: title)
-        cards.items.append(card)
-        return card
     }
 }

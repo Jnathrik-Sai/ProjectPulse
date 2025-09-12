@@ -17,6 +17,6 @@ class ApiUrl {
     }
     
     convenience init() {
-        self.init(baseURLString: "https://43a70fe41d6a.ngrok-free.app")
+        self.init(baseURLString: "Your Api URL")
     }
 }

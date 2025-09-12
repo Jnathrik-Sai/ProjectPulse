@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUIIntrospect
 import BottomSheet
 
 // MARK: - BoardListView
@@ -13,22 +12,38 @@ struct BoardListView: View {
     var body: some View {
         VStack {
             headerView
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(boardList.cards.items) { card in
-                        CardView(board: board, boardList: boardList, card: card)
-                            .id(card.id)
-                            .padding(.horizontal, 8)
-                            .background(RoundedRectangle(cornerRadius: 6).fill(Color.white).shadow(radius: 1))
-                    }
-                    
-                    Button("+ Add card") { onRequestAddCard(boardList) }
-                        .frame(maxWidth: .infinity)
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 6).fill(Color.gray.opacity(0.2)))
+
+            List {
+                ForEach(boardList.cards.items) { card in
+                    CardView(board: board, boardList: boardList, card: card)
+                        .id(card.id)
+                        .padding(.vertical, 4)
+                        .onDrag {
+                            NSItemProvider(object: card)
+                        }
+                        .onDrop(
+                            of: [Card.typeIdentifier],
+                            delegate: CardDropDelegate(card: card, board: board, boardList: boardList)
+                        )
                 }
-                .padding(.vertical, 4)
+                .onMove { indices, newOffset in
+                    boardList.moveCards(fromOffsets: indices, toOffset: newOffset)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+
+                Section {
+                    Button("+ Add card") { onRequestAddCard(boardList) }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .onDrop(
+                            of: [Card.typeIdentifier],
+                            delegate: CardDropDelegate(card: nil, board: board, boardList: boardList)
+                        )
+                }
             }
+            .listStyle(PlainListStyle())
         }
         .padding(.vertical)
         .background(boardListBackgroundColor)
@@ -37,6 +52,7 @@ struct BoardListView: View {
         .foregroundColor(.black)
     }
 
+    // MARK: Header
     private var headerView: some View {
         VStack(spacing: 4) {
             HStack(spacing: 12) {
@@ -83,6 +99,7 @@ struct BoardListView: View {
         }
     }
 
+    // MARK: Rename
     private func handleRename() {
         presentAlertTextField(title: "Rename list", defaultTextFieldText: boardList.name) { text in
             guard let text = text, !text.isEmpty else { return }

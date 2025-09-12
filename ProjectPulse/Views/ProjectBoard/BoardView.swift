@@ -89,22 +89,6 @@ struct BoardView: View {
                                         showingAddCardSheet = true
                                     }
                                 )
-                                .onDrag({
-                                    self.dragging = boardList
-                                    return NSItemProvider(object: boardList)
-                                })
-                                .onDrop(
-                                    of: [Card.typeIdentifier, BoardList.typeIdentifier],
-                                    delegate: BoardDropDelegate(
-                                        board: board,
-                                        boardList: boardList,
-                                        lists: Binding(
-                                            get: { board.lists },
-                                            set: { viewModel.board?.lists = $0 }
-                                        ),
-                                        current: $dragging
-                                    )
-                                )
                             }
                             
                             // Add list button

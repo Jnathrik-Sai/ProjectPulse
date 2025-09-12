@@ -93,7 +93,7 @@ struct HomeBody: View {
                     maxWidth: .infinity,
                     maxHeight: .infinity,
                     alignment: .top)
-                .background(.ultraThinMaterial)
+                .background(.white)
                 .cornerRadius(30, corners: [.topLeft, .topRight])
             }
             .frame(maxHeight: .infinity, alignment: .top)
@@ -103,5 +103,5 @@ struct HomeBody: View {
 
 
 #Preview {
-    TabBarContentView()
+    NavContentView()
 }
